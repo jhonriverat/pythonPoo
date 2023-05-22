@@ -1,7 +1,8 @@
 import streamlit as st
 import model.animales as animales
 class habitat():
-    def __init__(self,temperaturaMin,temperaturaMax,capacidadAnimales):
+    def __init__(self,nombreHabitat,temperaturaMin,temperaturaMax,capacidadAnimales):
+        self._nombreHabitat = nombreHabitat
         self._temperaturaMin = temperaturaMin
         self._temperaturaMax = temperaturaMax
         self._capacidadAnimales = capacidadAnimales

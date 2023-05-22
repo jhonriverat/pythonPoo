@@ -23,6 +23,8 @@ class zoologicoView():
             elif botonCrearHabitat:
                 st.session_state["opcion"] = 2
 
+            if "opcion" in st.session_state:
+                self._controlador.ejecutarOpciones(st.session_state["opcion"])
 
     def menu_creacion_animal(self, idAnimal, zoologico):
         st.divider()
@@ -31,8 +33,14 @@ class zoologicoView():
             st.subheader("Datos para agregar animal al RHLMZoo")
             nombre = st.text_input("Nombre del animal: ")
             especie = st.text_input("Especie del animal: ")
-            edad = st.slider("Edad del animal: ", min_value= 0,max_value= 10, step=1)
             habitat = st.selectbox("Habitat del animal: ", zoologico.tiposHabitats)
             claseDeAlimentacion = st.selectbox("Clase de alimentacion del animal: ", zoologico.tiposAlimentacion)
-            temperatura = st.slider("Temperatura adaptativa para el animal: ", min_value= -15, max_value= 35, step=1)
+            edad = st.slider("Edad del animal: ", min_value=0, max_value=10, step=1)
+            horasMinimasDormir = st.slider("Horas minimas que debe dormir el animal: ", min_value=0, max_value=24, step=1)
+            temperatura = st.slider("Temperatura adaptativa para el animal: ", min_value=-15, max_value=35, step=1)
             botonCrear = st.button("Crear animal")
+
+            if botonCrear:
+                nuevoAnimal = animalesModel.animales(idAnimal,nombre,edad,especie,habitat,claseDeAlimentacion,horasMinimasDormir)
+                st.success("Se creo el animal con exito")
+                st.success("RECORDAR: ingresarlo en un habitat")
