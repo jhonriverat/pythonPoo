@@ -37,3 +37,10 @@ class Zoologico():
         self.habitats.append(habitat)
         st.session_state["habitats"] = self.habitats
         return True
+
+    def obtenerHabitat(self,nombreHabitat,habitats):
+        for habitat in habitats:
+            if nombreHabitat == habitat._nombreHabitat:
+                return 1
+            else:
+                return 0
