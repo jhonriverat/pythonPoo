@@ -78,5 +78,6 @@ class Zoologico():
                 return 1
             else:
                 return 0
+    # def comer(self,,alimento):
 
 
