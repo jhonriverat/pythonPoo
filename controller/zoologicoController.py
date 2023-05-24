@@ -28,8 +28,7 @@ class zoologicoController:
         if opcion == 5:
             self.vista.menu_comidas(self.modelo)
         if opcion == 6:
-            self.vista.menu_acciones(self.modelo.habitats,self.modelo)
-
+            self.vista.menu_acciones(self.modelo.animales,self.modelo.habitats,self.modelo)
 
     def aplicarFormatoA(self, animales):
         datos = []

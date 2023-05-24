@@ -217,7 +217,7 @@ class zoologicoView():
 
 
 
-    def menu_acciones(self,habitats,zoologico):
+    def menu_acciones(self,animales,habitats,zoologico):
         st.subheader("Haz acciones con nuestros animales")
         st.divider()
         with st.container():
@@ -236,12 +236,15 @@ class zoologicoView():
                     st.table(datosAnimales)
                     obtenerAnimales = self.obtenerAnimalH(habitatSelec.animalesDic)
                     animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
-                    animalSelec = habitatSelec[obtenerAnimales.index(animalObtenido)]
+                    animalSelec = animales[obtenerAnimales.index(animalObtenido)]
                     if animalSelec:
                         accion = st.selectbox("Seleccione la accion a ejecutar", zoologico.opcionesInteractuar)
 
                         if accion == "Dormir":
                             st.subheader("Menu hacer dormir al animal")
+                            horasUsuario = st.slider("Horas que desea que el animal duerma", min_value=1,max_value=24,step=1)
+                            zoologico.dormir(animalSelec.horasMinimasDormir,horasUsuario)
+
 
                         if accion == "Comer":
                             st.subheader("Menu alimentar al animal")
@@ -262,8 +265,8 @@ class zoologicoView():
         return lista
     def obtenerAnimalH(self, habitats):
         lista = []
-        for habitat in habitats:
-            animalTemp = "nombre: {} - especie: {}".format(habitat.id, habitat.nombreAnimal)
+        for animal in habitats:
+            animalTemp = "nombre: {} - especie: {}".format(habitats[animal].id, habitats[animal].nombreAnimal)
             lista.append(animalTemp)
         return lista
 

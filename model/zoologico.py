@@ -66,6 +66,11 @@ class Zoologico():
         else:
             return 0
 
+    def dormir(self, horasAnimal, horasUsuario):
+        if horasUsuario >= horasAnimal:
+            st.success("El animal logro dormir")
+        else:
+            st.error("Las horas no son suficientes para el animal, no lo lograste dormir")
 
     def obtenerHabitat(self,nombreHabitat,habitats):
         for habitat in habitats:
