@@ -9,7 +9,7 @@ import controller.zoologicoController as ZoologicoController
 
 class zoologicoView():
     def __init__(self):
-        self.zoologico = zoologicoModel.Zoologico(0)
+        self.zoologico = zoologicoModel.Zoologico(1)
         self.controlador = ZoologicoController.zoologicoController(self.zoologico, self)
 #Funcion de implementacion del menu principal en streamlit, se adicionan botones y se definen opciones por cada boton que los llevara al controller
     def menu(self):
@@ -113,6 +113,7 @@ class zoologicoView():
                     nuevoHabitat = habitatModel.desertico(nombre,dieta,temperaturaMax,temperaturaMin,capacidad,"Selvatico",vegetacionDensa,biodiversidad)
                 st.success("El habitat se agrego exitosamente")
                 return nuevoHabitat
+            st.experimental_rerun()
 
 # en esta funcion definimos el menu de agregar un animal existente a un habitat existente, verificando que sea habitable para el animal, esta funcion maneja selectores de opciones en as cuales tiene respuesta inmediata
     def menu_agregar_animal_habitat(self,animales,habitats,zoologico):
@@ -121,6 +122,7 @@ class zoologicoView():
         with st.container():
             if len(animales) == 0:
                 self.mensaje_error("No hay animales disponibles")
+                st.experimental_rerun()
             else:
                 obtenerAnimales = self.obtenerAnimal(animales)
                 animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
@@ -223,42 +225,48 @@ class zoologicoView():
         st.subheader("Haz acciones con nuestros animales")
         st.divider()
         with st.container():
-            obtenerHabitas = self.obtenerHabitas(habitats)
-            habitatObtenido = st.selectbox("Habitat que desea listar: ", obtenerHabitas)
-            habitatSelec = habitats[obtenerHabitas.index(habitatObtenido)]
-            if len(habitatSelec.animalesDic) == 0:
-                self.mensaje_error("No hay animales para listar en este habitat")
-            else:
-                botonListarAnimales = st.button("Listar animales")
-                if botonListarAnimales:
-                    datosAnimales = pd.DataFrame(
-                        self.controlador.aplicarFormatoB(habitatSelec.animalesDic.values()),
-                        columns = ["ID animal", "Nombre","Dieta", "Horas minimas que debe dormir", "Disponibilidad de jugar"]
-                    )
-                    st.table(datosAnimales)
-                    opciones = []
-                    ids = []
-                    for animal in habitatSelec.animalesDic:
-                        animalTemp = "id: {} - nombre: {}".format(habitatSelec.animalesDic[animal].id, habitatSelec.animalesDic[animal].nombreAnimal)
-                        opciones.append(animalTemp)
-                        ids.append(habitatSelec.animalesDic[animal].id)
-                    obtenerAnimales = opciones
-                    animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
-                    animalSelec = habitatSelec.animalesDic[ids[opciones.index(animalObtenido)]]
-                    accion = st.selectbox("Seleccione la accion a ejecutar", zoologico.opcionesInteractuar)
-                    botonAccion = st.button("Accion")
-                    if botonAccion:
-                        if accion == "Dormir":
-                            st.subheader("Menu hacer dormir al animal")
-                            horasUsuario = st.slider("Horas que desea que el animal duerma", min_value=1,max_value=24,step=1)
-                            botonDormir = st.button("Dormir")
-                            if botonDormir:
-                                zoologico.dormir(animalSelec.horasMinimasDormir,horasUsuario)
-                        if accion == "Comer":
-                            st.subheader("Menu alimentar al animal")
+            # obtenerHabitas = self.obtenerHabitas(habitats)
+            # habitatObtenido = st.selectbox("Habitat que desea listar: ", obtenerHabitas)
+            # habitatSelec = habitats[obtenerHabitas.index(habitatObtenido)]
+            # if len(habitatSelec.animalesDic) == 0:
+            #     self.mensaje_error("No hay animales para listar en este habitat")
+            # else:
+            #     botonListarAnimales = st.button("Listar animales")
+            #     if botonListarAnimales:
+            #         datosAnimales = pd.DataFrame(
+            #             self.controlador.aplicarFormatoB(habitatSelec.animalesDic.values()),
+            #             columns = ["ID animal", "Nombre","Dieta", "Horas minimas que debe dormir", "Disponibilidad de jugar"]
+            #         )
+                    #st.table(datosAnimales)
+            opciones = []
+            ids = []
+            for habitat in self.zoologico.habitats:
+                for animal in habitat.animalesDic:
+                    animalTemp = "id: {} - nombre: {}".format(habitat.animalesDic[animal].id,habitat.animalesDic[animal].nombreAnimal)
+                    opciones.append(animalTemp)
+                    ids.append(habitat.animalesDic[animal].id)
 
-                        if accion == "Jugar":
-                            st.subheader("Menu jugar con el animal")
+            # for animal in habitatSelec.animalesDic:
+            #     animalTemp = "id: {} - nombre: {}".format(habitatSelec.animalesDic[animal].id, habitatSelec.animalesDic[animal].nombreAnimal)
+            #     opciones.append(animalTemp)
+            #     ids.append(habitatSelec.animalesDic[animal].id)
+            obtenerAnimales = opciones
+            animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
+            animalSelec = habitat.animalesDic[ids[opciones.index(animalObtenido)]]
+            accion = st.selectbox("Seleccione la accion a ejecutar", zoologico.opcionesInteractuar)
+            botonAccion = st.button("Accion")
+            if botonAccion:
+                if accion == "Dormir":
+                    st.subheader("Menu hacer dormir al animal")
+                    horasUsuario = st.slider("Horas que desea que el animal duerma", min_value=1,max_value=24,step=1)
+                    botonDormir = st.button("Dormir")
+                    if botonDormir:
+                        zoologico.dormir(animalSelec.horasMinimasDormir,horasUsuario)
+                if accion == "Comer":
+                    st.subheader("Menu alimentar al animal")
+
+                if accion == "Jugar":
+                    st.subheader("Menu jugar con el animal")
 
 
 #funciones de error de mensaje
@@ -295,14 +303,18 @@ class zoologicoView():
                         return 1
                     else:
                         self.mensaje_error("No hay suficiente capacidad")
+                        st.experimental_rerun()
                         return 0
                 else:
                     self.mensaje_error("La temperatura del animal no se adecua")
+                    st.experimental_rerun()
                     return 0
             else:
                 self.mensaje_error("La alimentacion del habitat no se adapta al animal")
+                st.experimental_rerun()
                 return 0
         else:
             self.mensaje_error("El animal no se adecua a este habitat")
+            st.experimental_rerun()
             return 0
 
