@@ -1,52 +1,54 @@
 import streamlit as st
 import model.animales as animales
 class habitat():
-    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin,capacidadAnimales):
-        self._nombreHabitat = nombreHabitat
-        self._temperaturaMax = temperaturaMax
-        self._temperaturaMin = temperaturaMin
-        self._capacidadAnimales = capacidadAnimales
-        self._dieta = dieta
-        self._cantidadAnimales = 0
-        self._animalesMap = {}
+    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin,capacidadAnimales, tipoHabitat):
+        self.nombreHabitat = nombreHabitat
+        self.temperaturaMax = temperaturaMax
+        self.temperaturaMin = temperaturaMin
+        self.capacidadAnimales = capacidadAnimales
+        self.dieta = dieta
+        self.cantidadAnimales = 0
+        self.tipoHabitat = tipoHabitat
+        self.animalesDic = {}
         # self._arregloHabitas = []
         # self._arregloDesertico = []
         # self._arregloAcuatico = []
         # self._arregloPolar = []
         # self._arregloSelvatico = []
 
-    def agregarAnimal(self,animales):
-        tempId = animales._id
-        self._animalesMap[tempId] = animales
-        self._cantidadAnimales += 1
+    def agregarAnimalH(self,animales):
+        tempId = animales.id
+        self.animalesDic[tempId] = animales
+        self.cantidadAnimales += 1
+        st.success("Se agrego correctamente al animal al habitat")
 
     def eliminarAnimal(self,id):
-        self._animalesMap.pop(id)
-        self._cantidadAnimales -= 1
+        self.animalesDic.pop(id)
+        self.cantidadAnimales -= 1
 
 
 
 
 class desertico(habitat):
-    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin ,cantidadAnimales,atributo1,atributo2):
-        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales)
+    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin ,cantidadAnimales,tipoHabitat,atributo1,atributo2):
+        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
         self._atributo1 = atributo1
         self._atributo2 = atributo2
 
 class acuatico(habitat):
-    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,atributo1,atributo2):
-        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales)
+    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,tipoHabitat,atributo1,atributo2):
+        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
         self._atributo1 = atributo1
         self._atributo2 = atributo2
 
 class polar(habitat):
-    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,atributo1,atributo2):
-        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales)
+    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,tipoHabitat,atributo1,atributo2):
+        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
         self._atributo1 = atributo1
         self._atributo2 = atributo2
 
 class selvatico(habitat):
-    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,atributo1,atributo2):
-        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales)
+    def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,tipoHabitat,atributo1,atributo2):
+        super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
         self._atributo1 = atributo1
         self._atributo2 = atributo2

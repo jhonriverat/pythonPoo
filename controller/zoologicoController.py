@@ -7,9 +7,9 @@ class zoologicoController:
     def ejecutarOpciones(self,opcion):
         if opcion == 1:
             try:
-                nuevoAnimal = self.vista.menu_creacion_animal(self.modelo.idAnimal, self.modelo)
+                nuevoAnimal = self.vista.menu_creacion_animal(self.modelo.idAnimal,self.modelo)
                 if nuevoAnimal:
-                    self.modelo.agregarAnimal(nuevoAnimal)
+                    self.modelo.agregarAnimalZ(nuevoAnimal)
             except ValueError:
                 self.vista.mensaje_error("Se presento un error al crear el animal")
 
@@ -23,4 +23,15 @@ class zoologicoController:
 
         if opcion == 3:
             self.vista.menu_agregar_animal_habitat(self.modelo.animales,self.modelo.habitats,self.modelo)
+        if opcion == 4:
+            self.vista.menu_listar_animales(self.modelo.animales,self.modelo.habitats, self.modelo)
+        if opcion == 5:
+            self.vista.menu_comidas(self.modelo)
+
+
+    def aplicarFormatoA(self, animales):
+        datos = []
+        for animal in animales:
+            datos.append([animal.id, animal.nombreAnimal, animal.especie, animal.habitat, animal.claseAlimentacion, animal.horasMinimasDormir])
+        return datos
 
