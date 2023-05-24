@@ -184,9 +184,12 @@ class zoologicoView():
                 st.subheader("Agregar Alimentos")
                 tipoDieta = st.selectbox("Seleccione el tipo de dieta: ", zoologico.tiposAlimentacion)
                 nuevoAlimento = st.text_input("Ingrese el alimento nuevo: ")
-                botonAgregar = st.button("Agregar alimento")
-                if botonAgregar:
-                    zoologico.agregarComida(tipoDieta,nuevoAlimento)
+                if zoologico.obtenerAlimento(tipoDieta,nuevoAlimento) == 1:
+                    self.mensaje_error("Esta alimento ya se encuentra en tu dieta")
+                else:
+                    botonAgregar = st.button("Agregar Alimento")
+                    if botonAgregar:
+                        zoologico.agregarComida(tipoDieta,nuevoAlimento)
 
             if accion == "Eliminar":
                 st.subheader("Eliminar alimentos")

@@ -46,7 +46,7 @@ class Zoologico():
         st.session_state["habitats"] = self.habitats
         return True
     def agregarComida(self,tipoDieta,alimento):
-        self.alimentos[tipoDieta] = alimento
+        self.alimentos[tipoDieta].append(alimento)
         st.session_state["alimentos"] = self.alimentos
         st.success("Se agrego correctamente el alimento {} de la dieta {}".format(alimento,tipoDieta))
 
