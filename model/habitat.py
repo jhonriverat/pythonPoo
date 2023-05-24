@@ -32,23 +32,23 @@ class habitat():
 class desertico(habitat):
     def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin ,cantidadAnimales,tipoHabitat,atributo1,atributo2):
         super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
-        self._atributo1 = atributo1
-        self._atributo2 = atributo2
+        self.atributo1 = atributo1
+        self.atributo2 = atributo2
 
 class acuatico(habitat):
     def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,tipoHabitat,atributo1,atributo2):
         super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
-        self._atributo1 = atributo1
-        self._atributo2 = atributo2
+        self.atributo1 = atributo1
+        self.atributo2 = atributo2
 
 class polar(habitat):
     def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,tipoHabitat,atributo1,atributo2):
         super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
-        self._atributo1 = atributo1
-        self._atributo2 = atributo2
+        self.atributo1 = atributo1
+        self.atributo2 = atributo2
 
 class selvatico(habitat):
     def __init__(self,nombreHabitat,dieta,temperaturaMax,temperaturaMin, cantidadAnimales,tipoHabitat,atributo1,atributo2):
         super().__init__(nombreHabitat,dieta,temperaturaMax,temperaturaMin,cantidadAnimales,tipoHabitat)
-        self._atributo1 = atributo1
-        self._atributo2 = atributo2
+        self.atributo1 = atributo1
+        self.atributo2 = atributo2

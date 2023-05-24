@@ -144,6 +144,8 @@ class zoologicoView():
                     if botonIngresarAnimal:
                         habitatSelec.agregarAnimalH(animalSelec)
                         zoologico.eliminarAnimal(animalSelec.id)
+                        time.sleep(2)
+                        st.experimental_rerun()
 
 #En este menu listaremos los animales por habitat, siendo asi un selector de opciones de habitat existentes en el zoologico y este determinara si existen animales o no, en caso de que no, no aparece el botom de listar
     # y aparecera una alerta, de lo contrario se activara el boton y listara a los animales dentro de dicha habitat seleccionada
@@ -171,7 +173,7 @@ class zoologicoView():
                         st.text("Porcentaje de diversidad biologica: {}%".format(habitatSelec.atributo1))
                         st.text("Nivel de agua en este habitat: {}".format(habitatSelec.atributo2))
                     if habitatSelec.tipoHabitat == "Polar":
-                        st.text("Probabilidad que este habitat sugra de bajas temperaturas: {}".format(habitatSelec.atributo1))
+                        st.text("Probabilidad que este habitat sufra de bajas temperaturas: {}".format(habitatSelec.atributo1))
                         st.text("Grado de presencia de nieve y hielo: {}".format(habitatSelec.atributo2))
                     if habitatSelec.tipoHabitat == "Selvatico":
                         st.text("Porcentaje de densa vegetacion en el habitat: {}%".format(habitatSelec.atributo1))
@@ -234,18 +236,24 @@ class zoologicoView():
                         columns = ["ID animal", "Nombre","Dieta", "Horas minimas que debe dormir", "Disponibilidad de jugar"]
                     )
                     st.table(datosAnimales)
-                    obtenerAnimales = self.obtenerAnimalH(habitatSelec.animalesDic)
+                    opciones = []
+                    ids = []
+                    for animal in habitatSelec.animalesDic:
+                        animalTemp = "id: {} - nombre: {}".format(habitatSelec.animalesDic[animal].id, habitatSelec.animalesDic[animal].nombreAnimal)
+                        opciones.append(animalTemp)
+                        ids.append(habitatSelec.animalesDic[animal].id)
+                    obtenerAnimales = opciones
                     animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
-                    animalSelec = animales[obtenerAnimales.index(animalObtenido)]
-                    if animalSelec:
-                        accion = st.selectbox("Seleccione la accion a ejecutar", zoologico.opcionesInteractuar)
-
+                    animalSelec = habitatSelec.animalesDic[ids[opciones.index(animalObtenido)]]
+                    accion = st.selectbox("Seleccione la accion a ejecutar", zoologico.opcionesInteractuar)
+                    botonAccion = st.button("Accion")
+                    if botonAccion:
                         if accion == "Dormir":
                             st.subheader("Menu hacer dormir al animal")
                             horasUsuario = st.slider("Horas que desea que el animal duerma", min_value=1,max_value=24,step=1)
-                            zoologico.dormir(animalSelec.horasMinimasDormir,horasUsuario)
-
-
+                            botonDormir = st.button("Dormir")
+                            if botonDormir:
+                                zoologico.dormir(animalSelec.horasMinimasDormir,horasUsuario)
                         if accion == "Comer":
                             st.subheader("Menu alimentar al animal")
 
