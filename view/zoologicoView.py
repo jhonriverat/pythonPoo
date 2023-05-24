@@ -225,19 +225,6 @@ class zoologicoView():
         st.subheader("Haz acciones con nuestros animales")
         st.divider()
         with st.container():
-            # obtenerHabitas = self.obtenerHabitas(habitats)
-            # habitatObtenido = st.selectbox("Habitat que desea listar: ", obtenerHabitas)
-            # habitatSelec = habitats[obtenerHabitas.index(habitatObtenido)]
-            # if len(habitatSelec.animalesDic) == 0:
-            #     self.mensaje_error("No hay animales para listar en este habitat")
-            # else:
-            #     botonListarAnimales = st.button("Listar animales")
-            #     if botonListarAnimales:
-            #         datosAnimales = pd.DataFrame(
-            #             self.controlador.aplicarFormatoB(habitatSelec.animalesDic.values()),
-            #             columns = ["ID animal", "Nombre","Dieta", "Horas minimas que debe dormir", "Disponibilidad de jugar"]
-            #         )
-                    #st.table(datosAnimales)
             opciones = []
             ids = []
             for habitat in self.zoologico.habitats:
@@ -245,11 +232,6 @@ class zoologicoView():
                     animalTemp = "id: {} - nombre: {}".format(habitat.animalesDic[animal].id,habitat.animalesDic[animal].nombreAnimal)
                     opciones.append(animalTemp)
                     ids.append(habitat.animalesDic[animal].id)
-
-            # for animal in habitatSelec.animalesDic:
-            #     animalTemp = "id: {} - nombre: {}".format(habitatSelec.animalesDic[animal].id, habitatSelec.animalesDic[animal].nombreAnimal)
-            #     opciones.append(animalTemp)
-            #     ids.append(habitatSelec.animalesDic[animal].id)
             obtenerAnimales = opciones
             animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
             animalSelec = habitat.animalesDic[ids[opciones.index(animalObtenido)]]
