@@ -17,9 +17,9 @@ class zoologicoView():
         st.write(
             "El proyecto trata de simular un zoológico el cual se compone basicamente por animales y habitats establecidas "
             "por el usuario, estos animales si pueden ser de cualquier forma que el usuario deseo, excepto por el tipo de habitat, "
-            "ya que estos estan establecidos por el desarrolador, en los cuales solo hahy 4 tipos se habitas que seran: desertico, acuatico,"
-            "polar y selvatico, esta misma condicion aplica al crear un habitat, posteriormente, tendremos diversas opciones entre ellas, listar animales"
-            "por los habitas existentes, hacer alguna accion con el animal, entre otras, asi que animate e interactua con RHLMZoo 🐾👹")
+            "ya que estos estan establecidos por el desarrolador, en los cuales solo hay 4 tipos se habitas que seran: desertico, acuatico,"
+            " polar y selvatico, esta misma condicion aplica al crear un habitat, posteriormente, tendremos diversas opciones entre ellas, listar animales"
+            " por los habitas existentes, hacer alguna accion con el animal, entre otras, asi que animate e interactua con RHLMZoo 🐾👹")
 
         with st.sidebar:
             st.header("Elige una opcion:")
