@@ -27,11 +27,20 @@ class zoologicoController:
             self.vista.menu_listar_animales(self.modelo.animales,self.modelo.habitats, self.modelo)
         if opcion == 5:
             self.vista.menu_comidas(self.modelo)
+        if opcion == 6:
+            self.vista.menu_acciones(self.modelo.habitats,self.modelo)
 
 
     def aplicarFormatoA(self, animales):
         datos = []
         for animal in animales:
             datos.append([animal.id, animal.nombreAnimal, animal.especie, animal.habitat, animal.claseAlimentacion, animal.horasMinimasDormir])
+        return datos
+
+    def aplicarFormatoB(self, animales):
+        datos = []
+        for animal in animales:
+            datos.append([animal.id, animal.nombreAnimal, animal.claseAlimentacion,
+                          animal.horasMinimasDormir, animal.yaJugo])
         return datos
 

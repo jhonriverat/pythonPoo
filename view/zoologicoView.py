@@ -23,6 +23,7 @@ class zoologicoView():
             botonAgregarAnimalHabitat = st.button("Agregar animal a un habitat", key=3, use_container_width=True)
             botonListarAnimales = st.button("Listar animales por habitats", key=4,use_container_width=True)
             botonComidas = st.button("Controlar dietas", key=5,use_container_width=True)
+            botonInteractuar = st.button("Interactuar con animales",key=6,use_container_width=True)
 
         if botonCrearAnimal:
             st.session_state["opcion"] = 1
@@ -34,6 +35,8 @@ class zoologicoView():
             st.session_state["opcion"] = 4
         elif botonComidas:
             st.session_state["opcion"] = 5
+        elif botonInteractuar:
+            st.session_state["opcion"] = 6
         if "opcion" in st.session_state:
             self.controlador.ejecutarOpciones(st.session_state["opcion"])
 #Menu que maneja la creacion del animal en el registro, este pide datos del animal y este retorna el animal creado
@@ -142,7 +145,6 @@ class zoologicoView():
                         habitatSelec.agregarAnimalH(animalSelec)
                         zoologico.eliminarAnimal(animalSelec.id)
 
-
 #En este menu listaremos los animales por habitat, siendo asi un selector de opciones de habitat existentes en el zoologico y este determinara si existen animales o no, en caso de que no, no aparece el botom de listar
     # y aparecera una alerta, de lo contrario se activara el boton y listara a los animales dentro de dicha habitat seleccionada
     def menu_listar_animales(self, animales,habitats, zoologico):
@@ -210,10 +212,42 @@ class zoologicoView():
                     botonModificar = st.button("Modificar alimento")
                     if botonModificar:
                         zoologico.eliminarComida(tipoDieta,alimentoEliminar)
+                        time.sleep(2)
                         zoologico.agregarComida(tipoDieta,nuevoAlimento)
 
 
 
+    def menu_acciones(self,habitats,zoologico):
+        st.subheader("Haz acciones con nuestros animales")
+        st.divider()
+        with st.container():
+            obtenerHabitas = self.obtenerHabitas(habitats)
+            habitatObtenido = st.selectbox("Habitat que desea listar: ", obtenerHabitas)
+            habitatSelec = habitats[obtenerHabitas.index(habitatObtenido)]
+            if len(habitatSelec.animalesDic) == 0:
+                self.mensaje_error("No hay animales para listar en este habitat")
+            else:
+                botonListarAnimales = st.button("Listar animales")
+                if botonListarAnimales:
+                    datosAnimales = pd.DataFrame(
+                        self.controlador.aplicarFormatoB(habitatSelec.animalesDic.values()),
+                        columns = ["ID animal", "Nombre","Dieta", "Horas minimas que debe dormir", "Disponibilidad de jugar"]
+                    )
+                    st.table(datosAnimales)
+                    obtenerAnimales = self.obtenerAnimalH(habitatSelec.animalesDic)
+                    animalObtenido = st.selectbox("Animal que desea agregar: ", obtenerAnimales)
+                    animalSelec = habitatSelec[obtenerAnimales.index(animalObtenido)]
+                    if animalSelec:
+                        accion = st.selectbox("Seleccione la accion a ejecutar", zoologico.opcionesInteractuar)
+
+                        if accion == "Dormir":
+                            st.subheader("Menu hacer dormir al animal")
+
+                        if accion == "Comer":
+                            st.subheader("Menu alimentar al animal")
+
+                        if accion == "Jugar":
+                            st.subheader("Menu jugar con el animal")
 
 
 #funciones de error de mensaje
@@ -224,6 +258,12 @@ class zoologicoView():
         lista = []
         for animal in animales:
             animalTemp = "nombre: {} - especie: {}".format(animal.nombreAnimal, animal.especie)
+            lista.append(animalTemp)
+        return lista
+    def obtenerAnimalH(self, habitats):
+        lista = []
+        for habitat in habitats:
+            animalTemp = "nombre: {} - especie: {}".format(habitat.id, habitat.nombreAnimal)
             lista.append(animalTemp)
         return lista
 

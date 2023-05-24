@@ -10,8 +10,10 @@ class animales():
         self.claseAlimentacion = claseAlimentacion
         self.horasMinimasDormir = horasMinimasDormir
         self.temperaturaAnimal = temperaturaAnimal
+        self.yaJugo = yaJugo
         self.arregloCarnivoro = ["aves","insectos","pescado"]
         self.arregloHerbivoro = ["hojas","corteza","frutos"]
         self.arregloOmnivoro = ["pescado","hojas","aves"]
+
 
 

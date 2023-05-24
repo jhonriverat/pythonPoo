@@ -28,6 +28,7 @@ class Zoologico():
         self.tiposHabitats = ["Polar","Selvatico","Acuatico","Desertico"]
         self.tiposAlimentacion = ["Carnivoro","Herbivoro","Omnivoro"]
         self.opcionesComida = ["Agregar","Eliminar","Modificar"]
+        self.opcionesInteractuar = ["Dormir","Comer","Jugar"]
 
 
     def agregarAnimalZ(self,animal):
