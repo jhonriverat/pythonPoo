@@ -14,6 +14,12 @@ class zoologicoView():
 #Funcion de implementacion del menu principal en streamlit, se adicionan botones y se definen opciones por cada boton que los llevara al controller
     def menu(self):
         st.title("Bienvenido al RHLMZoo 🐾👹")
+        st.write(
+            "El proyecto trata de simular un zoológico el cual se compone basicamente por animales y habitats establecidas "
+            "por el usuario, estos animales si pueden ser de cualquier forma que el usuario deseo, excepto por el tipo de habitat, "
+            "ya que estos estan establecidos por el desarrolador, en los cuales solo hahy 4 tipos se habitas que seran: desertico, acuatico,"
+            "polar y selvatico, esta misma condicion aplica al crear un habitat, posteriormente, tendremos diversas opciones entre ellas, listar animales"
+            "por los habitas existentes, hacer alguna accion con el animal, entre otras, asi que animate e interactua con RHLMZoo 🐾👹")
 
         with st.sidebar:
             st.header("Elige una opcion:")
@@ -261,13 +267,6 @@ class zoologicoView():
             animalTemp = "nombre: {} - especie: {}".format(animal.nombreAnimal, animal.especie)
             lista.append(animalTemp)
         return lista
-    def obtenerAnimalH(self, habitats):
-        lista = []
-        for animal in habitats:
-            animalTemp = "nombre: {} - especie: {}".format(habitats[animal].id, habitats[animal].nombreAnimal)
-            lista.append(animalTemp)
-        return lista
-
 #Funcion que obtiene habitat para ser mostrada en el selecbox de la pagina
     def obtenerHabitas(self, habitats):
         listaHabitats = []
